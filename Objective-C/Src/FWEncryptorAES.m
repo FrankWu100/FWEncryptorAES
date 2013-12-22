@@ -46,7 +46,7 @@
 	NSParameterAssert([iv isKindOfClass: [NSData class]] || [iv isKindOfClass: [NSString class]]);
     
     NSData *encrypted = [self encrypt:data Key:key IV:iv];
-    return [encrypted base64EncodedString];\
+    return [encrypted base64EncodedString];
 }
 
 + (NSData *)decryptFromBase64:(NSString *)str Key:(id)key IV:(id)iv
@@ -55,9 +55,26 @@
 	NSParameterAssert([iv isKindOfClass: [NSData class]] || [iv isKindOfClass: [NSString class]]);
     
     NSData *data = [NSData dataFromBase64String:str];
+    return [self decrypt:data Key:key IV:iv];
+}
+
++ (NSString *)encryptStrToBase64:(NSString *)str Key:(id)key IV:(id)iv
+{
+	NSParameterAssert([key isKindOfClass: [NSData class]] || [key isKindOfClass: [NSString class]]);
+	NSParameterAssert([iv isKindOfClass: [NSData class]] || [iv isKindOfClass: [NSString class]]);
     
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    return [self encryptToBase64:data Key:key IV:iv];
+}
+
++ (NSString *)decryptStrFromBase64:(NSString *)str Key:(id)key IV:(id)iv
+{
+	NSParameterAssert([key isKindOfClass: [NSData class]] || [key isKindOfClass: [NSString class]]);
+	NSParameterAssert([iv isKindOfClass: [NSData class]] || [iv isKindOfClass: [NSString class]]);
+    
+    NSData *data = [NSData dataFromBase64String:str];
     NSData *decrypted = [self decrypt:data Key:key IV:iv];
-    return decrypted;
+    return [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding];
 }
 
 + (NSData *)getKey:(id)key
@@ -92,4 +109,3 @@
 }
 
 @end
-

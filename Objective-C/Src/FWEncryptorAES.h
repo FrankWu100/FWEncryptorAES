@@ -16,6 +16,9 @@
 + (NSString *)encryptToBase64:(NSData *)data Key:(id)key IV:(id)iv;
 + (NSData *)decryptFromBase64:(NSString *)data Key:(id)key IV:(id)iv;
 
++ (NSString *)encryptStrToBase64:(NSString *)str Key:(id)key IV:(id)iv;
++ (NSString *)decryptStrFromBase64:(NSString *)data Key:(id)key IV:(id)iv;
+
 + (NSData *)getKey:(NSString *)key;
 + (NSData *)getIV:(NSString *)iv;
 
